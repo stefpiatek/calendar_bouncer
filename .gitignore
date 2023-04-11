@@ -309,3 +309,7 @@ pyrightconfig.json
 
 /.idea/inspectionProfiles/
 /.idea/
+
+# Ignore dynaconf secret files
+.secrets.*
+/config.cfg
