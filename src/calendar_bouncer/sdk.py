@@ -41,7 +41,8 @@ async def delete_calendar_permissions_using_sdk():
         logger.success(permission)
     except ODataError as exception:
         logger.error(message_template, message=exception.error.message)
-    except Exception as exception:
+    except Exception as exception:  # pylint: disable=W0718
+        # because SDK throws base Exceptions
         logger.error(message_template, message=exception)
 
 
