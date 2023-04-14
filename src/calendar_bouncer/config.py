@@ -16,7 +16,7 @@ settings = Dynaconf(
 credential = InteractiveBrowserCredential(
     tenant_id=settings.tenant_id, client_id=settings.client_id
 )
-scopes = ["User.Read", "Calendars.Read", "Calendars.ReadWrite"]
+scopes = ["Calendars.ReadWrite"]
 auth_provider = AzureIdentityAuthenticationProvider(credential, scopes=scopes)
 request_adapter = GraphRequestAdapter(auth_provider)
 client = GraphServiceClient(request_adapter)
