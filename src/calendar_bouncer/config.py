@@ -3,7 +3,6 @@ from dynaconf import Dynaconf
 from kiota_authentication_azure.azure_identity_authentication_provider import (
     AzureIdentityAuthenticationProvider,
 )
-from loguru import logger
 from msgraph import GraphRequestAdapter, GraphServiceClient
 
 settings = Dynaconf(
@@ -17,10 +16,6 @@ settings = Dynaconf(
 consent_url = (
     f"https://login.microsoftonline.com/{settings.tenant_id}/oauth2/authorize?client_id={settings.client_id}"
     "&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient&response_type=code&prompt=consent"
-)
-logger.info(
-    "If consent hasn't been given to this application before, navigate to this url:\n{consent_url}",
-    consent_url=consent_url,
 )
 
 # Username and password less secure, but does allow this to be run non-interactively

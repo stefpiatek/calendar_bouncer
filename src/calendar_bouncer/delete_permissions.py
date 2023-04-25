@@ -1,14 +1,23 @@
 import requests
+from azure.core.exceptions import ClientAuthenticationError
 from loguru import logger
 
-from calendar_bouncer.config import credential, scopes
+from calendar_bouncer.config import consent_url, credential, scopes
 
 REQUEST_TIMEOUT_SECONDS = 10
 
 
 def delete_permissions():
     """Delete all shared permissions on all calendars where that permission is removable (using REST API)"""
-    access = credential.get_token(" ".join(scopes))
+    try:
+        access = credential.get_token(" ".join(scopes))
+    except ClientAuthenticationError:
+        logger.info(
+            "If consent hasn't been given to this application before, navigate to this url:\n{consent_url}",
+            consent_url=consent_url,
+        )
+        return
+
     headers = {"Authorization": f"Bearer {access.token}", "Accept": "application/json"}
     permissions_url = (
         "https://graph.microsoft.com/v1.0/me/calendar/calendarPermissions/"
