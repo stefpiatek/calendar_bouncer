@@ -55,6 +55,9 @@ envs.default.dependencies = [
   "pytest-cov",
 ]
 
+[project.scripts]
+calendar_bouncer = "calendar_bouncer.main:main"
+
 
 [tool.pytest.ini_options]
 minversion = "6.0"
