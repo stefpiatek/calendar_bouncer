@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Removes shared permissions on outlook calendars"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 1 - Planning",
   "Intended Audience :: Science/Research",
@@ -20,12 +20,17 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Topic :: Scientific/Engineering",
   "Typing :: Typed",
 ]
 dynamic = ["version"]
-
+dependencies = [
+  "msgraph-sdk==1.0.0a11",
+  "dynaconf==3.1.12",
+  "loguru"
+]
 
 [project.optional-dependencies]
 test = [
@@ -49,6 +54,9 @@ envs.default.dependencies = [
   "pytest",
   "pytest-cov",
 ]
+
+[project.scripts]
+calendar_bouncer = "calendar_bouncer.main:main"
 
 
 [tool.pytest.ini_options]
