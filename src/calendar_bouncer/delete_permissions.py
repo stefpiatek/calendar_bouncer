@@ -26,10 +26,20 @@ def delete_permissions():
         permissions_url, headers=headers, timeout=REQUEST_TIMEOUT_SECONDS
     )
     shared_calendars = response.json().get("value")
+    deletion_count = 0
     for calendar in shared_calendars:
         if calendar.get("isRemovable") is True:
             delete_shared_calendar(calendar, headers)
-    logger.success("No more deletable calendars are left!")
+            deletion_count += 1
+    if deletion_count > 0:
+        logger.success(
+            f"Deleted {deletion_count} shared permissions on calendars",
+            deletion_count=deletion_count,
+        )
+    else:
+        logger.info(
+            "No share permissions to delete, these probably have already been deleted"
+        )
 
 
 def delete_shared_calendar(calendar, headers):
